@@ -1,0 +1,15 @@
+body, h2 {
+ font-size: 100%;
+ font-family: Arial;
+}
+
+
+
+table, th, td {
+	border: 1px solid black;
+
+}
+
+th, td {
+    padding: 20px;
+}
