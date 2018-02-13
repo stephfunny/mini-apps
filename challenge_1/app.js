@@ -1,141 +1,131 @@
-// Basic TicTacToe
 
-var currentPlayer = 'x';
-//var x = []; var o = [];
+var wins = {
+	x: 0,
+	o: 0
+}
+var won = false;
 var board = [
 	[0, 1, 2],
 	[3, 4, 5],
-	[6, 7, 8]
-]
+	[6, 7, 8] 
+];
+var currentPlayer = !currentPlayer ? 'x' : currentPlayer;
+// var init = function() {
+
+// 	var playerOne = prompt('Player 1, what\'s your name?');
+// 	// debugger;
+// 	document.getElementById('playerOne').innerHTML = 'test';
+// 	var playerTwo = prompt('Player 2, what\'s your name?');
+// 	document.getElementById('playerTwo').innerText = playerTwo;
+// }
+
+// init();
 
 var togglePlayer = function() {
-	console.log('currentPlayer is ', currentPlayer);
+	//console.log('currentPlayer is ', currentPlayer);
 	currentPlayer = currentPlayer === 'x' ? 'o' : 'x';
 }
 
 var onClick = function() {
-  setTile(this.id, currentPlayer);
-}
-
-// var tiles = document.getElementsByClassName('tile');
-// tiles.addEventListener("click", onClick.call(this));
-
-var setTile = function(id, player) {
-	// check if tile is open
-	if (document.getElementById(id).innerText === '') { 
-		document.getElementById(id).innerText = player;
-
-		updateBoard(id, player);
-		//logMove(id, player);
-  	//checkIfWon(id, eval(player));
-		togglePlayer();
-
+	if (!won) {
+		var x = this.cellIndex; var y = this.parentElement.rowIndex;
+		setElementText('message','');
+	  placeTile(x, y);
 	} else {
-		document.getElementsByClassName('tryagain').innerText = 'Sorry, try again';
-		console.log('try again'); // FIX ME
+		setElementText('message','Game Over. Please reset to play again.')
 	}
-	//console.log('x is ', x, 'o is ', o);
-
-}
-var updateBoard = function(id, player) {
-
 
 }
 
-var index = {
-	0: '[0][0]',
-	1: '[1][0]',
-	2: '[2][0]',
-	2: '[0][1]',
-	2: '[1][1]',
-	2: '[2][1]',
-	2: '[0][2]',
-	2: '[1][2]',
-	2: '[2][2]',
-}
-
-var resetBoard = function() {
-	for (var i = 0; i < 9; i++) {
-		document.getElementById(i).innerText = '';
+var placeTile = function(x, y) {
+	if (typeof board[y][x] === "number") {
+		board[y][x] = currentPlayer;
+		updateView(x, y, currentPlayer);
+		if (!checkIfPlayerWon(x, y, currentPlayer)) {
+			// debugger;
+			togglePlayer();
+		} 
 	}
-	currentPlayer = 'x';
+	else {
+	setElementText('message', 'Sorry, please try again!')
+	}
+
+	//console.log(board);
 }
 
-// var checkIfWon = function(id, player) {
-// 	console.log('CHECK IF WON', id, player)
-// 	//debugger;
-// 	var currentCol = id % 3;
-// 	if (player.includes( (id+3) % 9) && player.includes( (id+6) % 9) ) {
-// 		console.log('VERTICAL WIN!');
-// 	}
-// 	if (player.includes( (id+3) % 9) && player.includes( (id+6) % 9) ) {
-// 		console.log('horizontal WIN!');
-// 	} 
-// 	if (player.includes( (id+4) % 9) && player.includes( (id+8) % 9) ) {
-// 		console.log('MAJOR DIAGONAL WIN!');
-// 	}
-// 	if (player.includes(2) && pplayer.includes(4) && player.includes(6)) {
-// 		console.log('MINOR DIAGONAL WIN!');
-// 	}
+var updateView = function(x, y, updateToThis) {
+	document.getElementById(y).children[x].innerText = updateToThis;
+}
 
-// }
+var resetBoardView = function() {
+	currentPlayer;
+	// debugger;
+	for (var x = 0; x < 3; x++) {
+		for (var y = 0; y < 3; y++) {
+			updateView(x, y, '');
+		}
+	}
+	//currentPlayer = 'x';
+	board = [
+		[0, 1, 2],
+		[3, 4, 5],
+		[6, 7, 8]
+	];
+  setElementText('message', '');
+  won = false;
 
-	// diff = []; 
-	// player.sort();
+}
 
-	// for (var i = 0; i < player.length - 1; i++) {
-	// 	diff.push(player[i + 1] - player[i]);
-	// }
+var checkIfPlayerWon = function(x, y, currentPlayer) {
+	//check horizontal - keep y constant, check all x
+	var checkHorizontal = function() {
+		for (var i = 0; i < 3; i++) {
+			if (board[y][i] != currentPlayer) {
+				return false;
+			} 	
+		}
+		return true;
+	}
+	var checkVertical = function() {
+		for (var i = 0; i < 3; i++) {
+			if (board[i][x] != currentPlayer) {
+				return false;
+			} 	
+		}
+		return true;
+	}
+	var checkMajorDiagonal = function() {
+		for (var i = 0; i < 3; i++) {
+			if (board[i][i] != currentPlayer) {
+				return false;
+			}
+		}
+		return true;
+	}
+	var checkMinorDiagonal = function() {
+		if (board[2][0] != currentPlayer) {
+			return false;
+		}
+		if (board[1][1] != currentPlayer) {
+			return false;
+		}
+		if (board[0][2] != currentPlayer) {
+			return false;
+		}
+		return true;
+	}	
+	if (checkHorizontal() || checkVertical() || 
+			checkMajorDiagonal() || checkMinorDiagonal()) {
+		// debugger;
+		setElementText("message", `Congrats ${currentPlayer}, you won!`);
+		wins[currentPlayer] += 1;
+		setElementText(currentPlayer + '-score', wins[currentPlayer])
+		won = true;
+		return true;
+	}
 
-	// diff.sort();
-	// console.log('diff of ', player, ' is ', diff);
+}
 
-	// if (diff.includes(3)) {
-	// 	diff.splice(diff.indexOf(3), 1);
-	// //debugger;
-	// 	if (diff.includes(3)) {
-	// 		console.log(player, ' WON!');
-	// 	}
-	// }
-		// if (o.length > 1) {
-		// 	oDifferences.push(o[o.length - 1] - o[o.length - 2])
-		// }
-
-		
-	//console.log('x is ', x, 'o is ', o);
-	// for (var i = 0; i < x.length; )
-
-	// xDifferences = x.map( (item, index, col) => {
-	// 	if (x[index + 1]) {
-	// 		x[index + 1] - x[index];
-	// 	}
-	// })
-	// horizontal: 3 consecutive tiles, starting at 1, 4, or 7
-	// vertical: 1, 4, 7 | if 3 moves % 3 === 0, check again for moves + 1, moves + 2
-	// [0, 3, 6] ==> [3, 3]
-	// diagonal: 
-		// [0, 4, 8]  ==> [4, 4] 
-		// [2, 4, 6]  ==> [2, 2]
-		// edge cases: [0, 2, 4] [4, 6, 8]
-		// if there exists two differences between two numbers that equal 2, or 4
-
-
-
-// var logMove = function(id, player) {
-// 		//player === 'x' ? x.push(id) : o.push(id);
-// 	if (player === 'x') {
-// 		x.push(id);
-// 	} else {
-// 		o.push(id);
-// 	}
-// }
-
-
-
-
-
-
-
-
-
-
+var setElementText = function(id, message) {
+	document.getElementById(id).innerText = message;
+}

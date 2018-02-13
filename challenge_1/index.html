@@ -1,2 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="styles.css">
+	<script src="./app.js"></script>
+</head>
+
+<body>
+
+	<h3>Welcome to TicTacToe!</h3>
+	<div>
+
+		<table class='board'>
+			<tr id='0'>
+				<td class='tile' onclick='onClick.call(this)'></td>
+				<td class='tile' onclick='onClick.call(this)'></td>
+				<td class='tile' onclick='onClick.call(this)'></td>
+			</tr>
+
+			<tr id='1'>
+				<td class='tile' onclick='onClick.call(this)'></td>
+				<td class='tile' onclick='onClick.call(this)'></td>
+				<td class='tile' onclick='onClick.call(this)'></td>
+				
+			</tr>
+			
+			<tr id='2'>
+				<td class='tile' onclick='onClick.call(this)'></td>
+				<td class='tile' onclick='onClick.call(this)'></td>
+				<td class='tile' onclick='onClick.call(this)'></td>
+			</tr>
+		</table>
+
+
+
+<!-- 		<table>
+			<tr >
+				<td id='0' class='tile' onclick='onClick.call(this)'></td>
+				<td id='1' class='tile' ></td>
+				<td id='2' class='tile' ></td>
+			</tr>
+
+			<tr>
+				<td id='3' class='tile' ></td>
+				<td id='4' class='tile' ></td>
+				<td id='5' class='tile' ></td>
+				
+			</tr>
+			
+			<tr>
+				<td id='6' class='tile' ></td>
+				<td id='7' class='tile' ></td>
+				<td id='8' class='tile' ></td>
+			</tr>
+		</table> -->
+
+
+
+		<br>
+		<button onclick='resetBoardView()'>Reset Board</button>
+		<br>
+		<br>
+		<div id='message'>
+		</div>
+
+	</div>
+	<br>
+	<div>
+		<table class='score'>
+			<tr class='score'>
+				<td class='score' id='playerOne'> X's : </th>
+				<td class='score' id='playerTwo'> O's : </th>
+
+			<tr> </tr>
+				<td class='score' id='x-score'> </td>
+				<td class='score' id='o-score'> </td>
+
+		</table>
+	</div>
+
+
+<!-- 		<table>
+			<tr>
+				<td>0</td>
+				<td>1</td>
+				<td>2</td>
+			</tr
+
+			<tr>
+				<td>3</td>
+				<td>4</td>
+				<td>5</td>
+			
+			</tr>
+			
+			<tr>
+				<td>6</td>
+				<td>7</td>
+				<td>8</td>
+			</tr
+		</table> -->
+
+
+
+</body>
+
+
+
+</html>
 
 

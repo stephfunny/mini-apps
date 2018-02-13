@@ -1,15 +1,27 @@
 body, h2 {
  font-size: 100%;
  font-family: Arial;
+ color: #cc9999;
+ text-align: center;
+ text-shadow: 4px;
 }
 
 
-
 table, th, td {
-	border: 1px solid black;
+	border: 1px solid grey;
+	margin: auto;
 
 }
 
 th, td {
-    padding: 20px;
+    height: 60px;
+    width: 60px;
+}
+
+.score {
+	border: 1px solid grey;
+	font-size: 12px;
+	color: grey;
+	height: 40px;
+
 }
