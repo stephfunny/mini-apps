@@ -19,7 +19,7 @@ $(document).ready(function() {
 			contentType: 'application/json',
 			success: function(response) {
 				console.log('Ajax success!');
-				console.log(response)
+				$('body').append(response);
 			},
 			error: function() {
 				//console.log(error);

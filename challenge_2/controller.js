@@ -1,5 +1,5 @@
 var express = require('express')
-var json2csv = require('json2csv');
+// var json2csv = require('json2csv');
 
 var headers = {
   'access-control-allow-origin': '*',
@@ -14,25 +14,39 @@ module.exports = {
       console.log('Success GET!');
       //console.log(typeof req.body);
 
-
-      res.set(headers).status(200).send(JSON.stringify("hello"));
+      //res.set(headers).status(200).send(JSON.stringify(flattenObject(req.body)));
+      //res.json(flattenObject(req.body));
     }, 
     post: function (req, res) { 
     	res.status = 201;
       console.log('Success POST!');
-      var result = json2csv(
-      	{data: req.body,
-      		fields: ["firstName", "lastName", "county", "city", "role", "sales", "children"]
-      	});
-      console.log(req.body);
-      console.log(result);
-      res.json(result);
-
-    	//res.json(flattenObject(req.body));
-    }
+    	console.log(createHtml(flattenObject(req.body)))
+      res.json(createHtml(flattenObject(req.body)));
+     	}
  
 };
 
-// module.exports = controller;
 
+var flattenObject = function(object) {
+	var results = [];
 
+	results.unshift(Object.keys(object).slice(0, Object.keys(object).length - 1).join(','));
+
+	var flattenLevel = function(childObj) {
+		if (childObj.children.length === 0) {
+			results.push(Object.values(childObj).filter(x => typeof x!= "object").join(','));
+			return;
+		}	else {
+			results.push(Object.values(childObj).filter(x => typeof x!= "object").join(','));
+			childObj.children.forEach( function(eachChildObj) {
+				flattenLevel(eachChildObj);
+			});
+		};
+	}
+	flattenLevel(object);
+	return results;
+}
+
+var createHtml = function(csvTextArray) {
+	return csvTextArray.map( x => `<div>${x}</div>` ).join('')
+}
