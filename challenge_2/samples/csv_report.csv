@@ -4,3 +4,21 @@ Beth Jr.,Johnson,San Mateo,Pacifica,Manager,2900000
 Smitty,Won,San Mateo,Redwood City,Sales Person,4800000
 Allen,Price,San Mateo,Burlingame,Sales Person,2500000
 Beth,Johnson,San Francisco,San Francisco,Broker/Sales Person,7500000
+
+
+
+
+
+
+
+
+
+{
+    "firstName": "Joshie",
+    "lastName": "Wyattson",
+    "county": "San Mateo",
+    "city": "San Mateo",
+    "role": "Broker",
+    "sales": 1000000,
+    "children": []
+}
