@@ -2,14 +2,31 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 var Column = (props) => {
-	if (props.turn === true) {
+	// if (props.turn === true) {
+ //    return (
+ //        <div onClick={function() {props.handleClick(props.columnKey, props.rowKey)}} className="column" style={{color:'red'}}></div>
+ //    )} else {
+ //    	return (
+ //        <div onClick={function() {props.handleClick(props.columnKey, props.rowKey)}} className="column" style={{color:'blue'}}></div>
+ //    )
+ //    }
+
+	if (props.board[props.rowKey][props.columnKey] === 1) {
     return (
-        <div onClick={function() {props.handleClick(props.myKey)}} className="column" style={{color:'red'}}></div>
-    )} else {
-    	return (
-        <div onClick={function() {props.handleClick(props.myKey)}} className="column" style={{color:'blue'}}></div>
-    )
+        <div onClick={function() {props.handleClick(props.columnKey, props.rowKey)}} className="column" style={{background:'red'}}></div>
+    )} else if (props.board[props.rowKey][props.columnKey] === 2) {
+ 			return (
+        <div onClick={function() {props.handleClick(props.columnKey, props.rowKey)}} className="column" style={{background:'black'}}></div>
+    	)
     }
+
+
+
+     else {
+    	return (
+        <div onClick={function() {props.handleClick(props.columnKey, props.rowKey)}} className="column"></div>
+    )}
+
 
 }
 
