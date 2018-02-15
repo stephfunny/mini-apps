@@ -8,24 +8,22 @@ class App extends React.Component {
             won: false,
             turn: true, //first player's turn
             board: 
-            // [
-            //     [0, 0, 0, 0, 0, 0, 0],
-            //     [0, 0, 0, 0, 0, 0, 0],
-            //     [0, 0, 0, 0, 0, 0, 0],
-            //     [0, 0, 0, 0, 0, 0, 0],
-            //     [0, 0, 0, 0, 0, 0, 0],
-            //     [0, 0, 0, 0, 0, 0, 0]
-            // ]
             [
                 [0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0],
-                [0, 1, 2, 0, 0, 0, 0],
-                [0, 1, 1, 2, 0, 0, 0],
-                [0, 1, 2, 2, 2, 0, 0],
-                [1, 2, 1, 2, 1, 2, 0]
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0]
             ]
-
-
+            // [
+            //     [0, 0, 0, 0, 0, 0, 0],
+            //     [0, 0, 0, 0, 0, 0, 0],
+            //     [0, 1, 2, 0, 0, 0, 0],
+            //     [0, 1, 1, 2, 0, 0, 0],
+            //     [0, 1, 2, 2, 2, 0, 0],
+            //     [1, 2, 1, 2, 1, 2, 0]
+            // ]
 
         }
     }
@@ -71,7 +69,7 @@ class App extends React.Component {
           //debugger;
           var count = 0;
           for (var i = 0; i < 6; i++) {
-            if ( row + 3 - i > 5 || column - 3 + i > 6) {
+            if ( row + 3 - i > 5 || column - 3 + i > 6 || row + 3 - i < 0 || column - 3 + i < 0) {
               // do nothing;
             } 
             // else if (!board[column - 3]) {
@@ -97,7 +95,7 @@ class App extends React.Component {
         var minorDiagonal = function() {
           var count = 0;
           for (var i = 0; i < 6; i++) {
-            if ( row + 3 - i > 5 || column + 3 - i > 6) {
+            if ( row + 3 - i > 5 || column + 3 - i > 6 || row + 3 - i < 0 || column + 3 - i < 0) {
               // do nothing;
             } 
             // else if (!board[column - 3]) {
@@ -119,7 +117,6 @@ class App extends React.Component {
           console.log('minorDiagonal fail')
           return false;
         }
-
 
       if (vertical() || horizontal() || majorDiagonal() || minorDiagonal()) {
         console.log('winner!')
@@ -144,10 +141,15 @@ class App extends React.Component {
               return 5 - i;
             }
           }
-          // return false;
+           return false;
         }
 
+
         var row = chooseRow(column);
+        if (row === false) {
+          console.log('no more spaces here!')
+          return;
+        }
 
         this.state.turn ? currentPlayer = 1 : currentPlayer = 2;
 

@@ -1,4 +1,14 @@
+header {
+font-family: 'Fredericka the Great';
+font-size: 40px;
+text-align: center;
+
+
+}
+
 body {
+
+	text-align: center;
 	background-color: #ece9e9;
 
 }
@@ -21,12 +31,12 @@ body {
 }
 
 .column {
-	width: 32px;
-	height: 30px;
+	width: 40px;
+	height: 40px;
 	display: inline-block;
 	background-color: white;
 	border-radius: 50%;
-	margin: 4px;
+	margin: 6px;
 }
 
 /*.row {

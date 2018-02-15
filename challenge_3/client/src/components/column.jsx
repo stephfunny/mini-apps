@@ -13,10 +13,16 @@ var Column = (props) => {
 
 	if (props.board[props.rowKey][props.columnKey] === 1) {
     return (
-        <div onClick={function() {props.handleClick(props.columnKey, props.rowKey)}} className="column" style={{background:'red'}}></div>
+        <div onClick={function() {
+        	props.handleClick(props.columnKey, props.rowKey)}} 
+        	className="column" 
+        	style={{background:'#9B2C2C'}}></div>
     )} else if (props.board[props.rowKey][props.columnKey] === 2) {
  			return (
-        <div onClick={function() {props.handleClick(props.columnKey, props.rowKey)}} className="column" style={{background:'black'}}></div>
+        <div onClick={function() {
+        	props.handleClick(props.columnKey, props.rowKey)}} 
+        	className="column" 
+        	style={{background:'#665C5C'}}></div>
     	)
     }
 
