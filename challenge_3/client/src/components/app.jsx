@@ -7,40 +7,55 @@ class App extends React.Component {
         this.state = {
             won: false,
             turn: true, //first player's turn
-            board: [
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0]
+            board: 
+            // [
+            //     [0, 0, 0, 0, 0, 0, 0],
+            //     [0, 0, 0, 0, 0, 0, 0],
+            //     [0, 0, 0, 0, 0, 0, 0],
+            //     [0, 0, 0, 0, 0, 0, 0],
+            //     [0, 0, 0, 0, 0, 0, 0],
+            //     [0, 0, 0, 0, 0, 0, 0]
+            // ]
+            [
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 1, 2, 0, 0, 0, 0],
+                [0, 1, 1, 2, 0, 0, 0],
+                [0, 1, 2, 2, 2, 0, 0],
+                [1, 2, 1, 2, 1, 2, 0]
             ]
+
+
+
         }
     }
 
-    checkIfWon(column, row, currentPlayer) {
-      console.log('column: ', column, 'row: ', row);
+    checkIfWon(row, column, currentPlayer) {
+      //console.log('column: ', column, 'row: ', row);
       var board = this.state.board;
 
         var vertical = function() {
-          if ( (row - 3) < 0 ) {return false}
+          if (row > 2 ) {return false} // if you're not even on rows 4 or above
 
-          for (var i = 0; i < 4; i++) {
+          for (var i = 1; i < 4; i++) {
             //debugger;
-            if (board[column][row - i] != currentPlayer) {
-            return false;
+            if (board[row + i][column] != currentPlayer) {
+              console.log('vertical fail');
+              return false;
             }   
           }
+          console.log('vertical win!');
           return true;
         }
 
         var horizontal = function() {
           var count = 0;
-          for (var i = 0; i < 6; i++) {
-            if (board[i][row] === currentPlayer) {
+          for (var i = 0; i < 7; i++) {
+            //if (i === 3) {debugger}
+            if (board[row][i] === currentPlayer) {
               count += 1;
               if (count === 4) {
+                console.log('horizontal win!');
                 return true;
               }
             }    
@@ -48,19 +63,25 @@ class App extends React.Component {
               count = 0;
             }
           }
+          console.log('horizontal fail');
           return false;
         }
 
         var majorDiagonal = function() {
+          //debugger;
           var count = 0;
           for (var i = 0; i < 6; i++) {
-            if (column - 3 - i < 0) {
+            if ( row + 3 - i > 5 || column - 3 + i > 6) {
               // do nothing;
-            } else {
-
-              if (board[column - 3 - i][column - 3 - i] === currentPlayer) {
+            } 
+            // else if (!board[column - 3]) {
+            //   // do nothing;
+            // }
+             else {
+              if (board[row + 3 - i][column - 3 + i] === currentPlayer) {
                 count += 1;
                 if (count === 4) {
+                  console.log('majorDiagonal win!')
                   return true;
                 }
               } else { 
@@ -68,12 +89,35 @@ class App extends React.Component {
               }
             }
           }
+          console.log('majorDiagonal fail')
           return false;
         }
 
 
         var minorDiagonal = function() {
-            
+          var count = 0;
+          for (var i = 0; i < 6; i++) {
+            if ( row + 3 - i > 5 || column + 3 - i > 6) {
+              // do nothing;
+            } 
+            // else if (!board[column - 3]) {
+            //   // do nothing;
+            // }
+             else {
+              //debugger;
+              if (board[row + 3 - i][column + 3 - i] === currentPlayer) {
+                count += 1;
+                if (count === 4) {
+                  console.log('minorDiagonal win!')
+                  return true;
+                }
+              } else { 
+                count = 0;
+              }
+            }
+          }
+          console.log('minorDiagonal fail')
+          return false;
         }
 
 
@@ -81,6 +125,8 @@ class App extends React.Component {
         console.log('winner!')
         return true;
       } else {
+        console.log('loser!')
+
         return false
       }
 
@@ -88,22 +134,31 @@ class App extends React.Component {
 
     updateBoard(column) {
         //debugger;
+        var board = this.state.board;
         var currentPlayer;
-        var row = this.state.board[column].indexOf(0);
+        
+        //debugger;
+        var chooseRow = function(column) {
+          for (var i = 0; i <= 5; i++) {
+            if (board[5 - i][column] === 0) {
+              return 5 - i;
+            }
+          }
+          // return false;
+        }
+
+        var row = chooseRow(column);
+
         this.state.turn ? currentPlayer = 1 : currentPlayer = 2;
-        // if (this.state.turn) {
-        //     this.state.board[column][row] = 1;
-        // } else {
-        //     this.state.board[column][row] = 2;
-        // }
-        this.state.board[column][row] = currentPlayer;
-        this.checkIfWon(column, row, currentPlayer);
+
+        this.state.board[row][column] = currentPlayer;
+        this.checkIfWon(row, column, currentPlayer);
         
         // if not won: 
         this.state.turn ? this.setState({turn: false}) : this.setState({turn: true})
       
         console.log(this.state.board);
-        console.log(this.state.turn);
+        //console.log(this.state.turn);
 
         //this.updateView();
 
@@ -116,7 +171,7 @@ class App extends React.Component {
 
     handleClick(column, row) {
         //console.log('i was clicked!');
-        console.log('column was: ', column);
+        //console.log('column was: ', column);
         //console.log(this);
         this.updateBoard(column);
 
@@ -125,13 +180,12 @@ class App extends React.Component {
     resetBoard() {
       this.setState({
         board: [
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0]
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0]
             ],
         turn: true
       });    
