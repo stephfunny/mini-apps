@@ -8,6 +8,18 @@ body {
 	display: inline-block;
 }
 
+.playerOne {
+	background-color: red;
+
+
+}
+
+.playerTwo {
+	background-color: black;
+
+
+}
+
 .column {
 	width: 32px;
 	height: 30px;
@@ -25,3 +37,72 @@ body {
 	border-radius: 50%;
 	margin: 3px;
 }*/
+
+
+
+
+
+/*
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+class Column extends React.Component { 
+	constructor(props) {
+		super(props);
+		this.state = {
+			color: 'white'
+		}
+	}
+	render() {
+    return (
+        <div onClick={function() {
+        	//console.log(this);
+        	// debugger;
+        	this.props.handleClick(this.props.myKey)
+        	}} className="column" data-x="1" data-y="0"/>
+    
+    )}
+}
+
+export default Column;
+
+window.Column = Column;
+
+
+// () => console.log('i was clicked!', this)
+
+
+
+
+
+
+
+
+
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+
+class Row extends React.Component { 
+	constructor (props) { //this.props is an array: [1,2,3,4,5,6,7]
+        super(props); 
+        this.state = {}
+    }
+
+	render() {
+	    return ( 
+	    <div className="row">
+	      {[0, 1, 2, 3, 4, 5, 6].map( (x, i) => 
+	        <Column handleClick={this.props.handleClick} key={i} myKey={i}/>
+	        )}
+
+	    </div>
+	    )
+	}
+}
+
+
+export default Row;
+
+window.Row = Row;*/
