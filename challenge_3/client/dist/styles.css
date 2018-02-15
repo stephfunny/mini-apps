@@ -1,0 +1,27 @@
+body {
+	background-color: #ece9e9;
+
+}
+
+#board {
+	background-color: #cc9999;
+	display: inline-block;
+}
+
+.column {
+	width: 32px;
+	height: 30px;
+	display: inline-block;
+	background-color: white;
+	border-radius: 50%;
+	margin: 4px;
+}
+
+/*.row {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	background-color: white;
+	border-radius: 50%;
+	margin: 3px;
+}*/
